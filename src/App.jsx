@@ -19,18 +19,21 @@ function App() {
     });
   }
 
-  const totalFeedback = grade.good + grade.neutral + grade.bad; 
+  const resetFeedback = () => {
+    setGrade({
+      good: 0,
+      neutral: 0,
+      bad: 0
+    })
+  }
 
-  // useEffect(() => {
-
-  // }, [grade])
-
+const totalFeedback = grade.good + grade.neutral + grade.bad; 
   
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback}/>
-      <Feedback grade={grade} total={totalFeedback}></Feedback>
+      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} total={totalFeedback}/>
+      {totalFeedback > 0 ? <Feedback grade={grade} total={totalFeedback}></Feedback> : <h4>No feedback yet</h4>}
     </>
   )
 }
