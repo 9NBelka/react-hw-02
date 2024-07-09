@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import Description from './components/Description/Description'
 import Feedback from './components/Feedback/Feedback'
 import Options from './components/Options/Options'
@@ -27,13 +27,16 @@ function App() {
     })
   }
 
-const totalFeedback = grade.good + grade.neutral + grade.bad; 
+  const totalFeedback = grade.good + grade.neutral + grade.bad; 
+  const positiveFeedback = totalFeedback ? Math.round((grade.good / totalFeedback) * 100) : 0;
+
+
   
   return (
     <>
       <Description />
       <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} total={totalFeedback}/>
-      {totalFeedback > 0 ? <Feedback grade={grade} total={totalFeedback}></Feedback> : <h4>No feedback yet</h4>}
+      {totalFeedback > 0 ? <Feedback positive={positiveFeedback} grade={grade} total={totalFeedback}></Feedback> : <h4>No feedback yet</h4>}
     </>
   )
 }
