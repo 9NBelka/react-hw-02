@@ -1,16 +1,24 @@
 
-import {useState } from 'react'
+import {useEffect, useState} from 'react'
 import Description from './components/Description/Description'
 import Feedback from './components/Feedback/Feedback'
 import Options from './components/Options/Options'
 
 function App() {
 
-  const [grade, setGrade] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
+  const [grade, setGrade] = useState (() => {
+    const savedGrade = localStorage.getItem("my-grade")
+    return savedGrade ? JSON.parse(savedGrade) : {
+      good: 0,
+      neutral: 0,
+      bad: 0
+    }
   });
+
+  useEffect(() => {
+    localStorage.setItem("my-grade", JSON.stringify(grade));
+  },[grade])
+  
 
   const updateFeedback = feedbackType => {
     setGrade({
